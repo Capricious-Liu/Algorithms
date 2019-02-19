@@ -93,6 +93,7 @@ vector<int> shell_sort(vector<int>& array){
 }
 
 // Merge Sort
+// up to down
 vector<int> merge(vector<int> left, vector<int> right){
 	vector<int> res;
 	int i=0, j = 0;
@@ -117,17 +118,56 @@ vector<int> merge(vector<int> left, vector<int> right){
 	return res;
 }
 
-vector<int> merge_sort(vector<int>& array){
+vector<int> merge_sort_up2down(vector<int>& array){
 	if (array.size() == 1) return array;
 	int middle = array.size() / 2;
 	vector<int> left(array.begin(),array.begin()+middle);
 	vector<int> right(array.begin() + middle, array.end());
-	return merge(merge_sort(left), merge_sort(right));
+	return merge(merge_sort_up2down(left), merge_sort_up2down(right));
 }
 
+// down to up
+void merge2(vector<int>& array, int start, int middle, int end){
+	vector<int> left(array.begin() + start, array.begin() + middle);
+	vector<int> right(array.begin() + middle, array.begin() + end);
 
+	int i = 0, j = 0;
+	int k = start;
+	while (i<left.size() && j<right.size()){
+		if (left[i]>=right[j]) array[k++] = left[i++];
+		else array[k++] = right[j++];
+	}
+	while (i < left.size()) array[k++] = left[i++];
+	while (j < right.size()) array[k++] = right[j++];
+}
+
+vector<int> merge_sort_down2up(vector<int> & array){
+	int gap = 1;
+	while (gap * 2 <= array.size()){
+		int i;
+		for (i = 2*gap; i < array.size(); i += 2*gap){
+			merge2(array, i-2*gap, i - gap, i);
+		}
+		merge2(array,i-4*gap,i-2*gap,array.size());
+		gap *= 2;
+	}
+	return array;
+}
+
+// Quick Sort
+void quick_sort_kernel(vector<int>& array, int left, int right){
+	
+}
+
+vector<int> quick_sort(vector<int>& array){
+	/*
+	To make the call simple
+	*/
+	quick_sort_kernel(array, 0, array.size() - 1);
+	return array;
+}
 
 int main(){
-	vector<int> array = { 4, 5, 2, 1, 3 };
-	cout << merge_sort(array);
+	vector<int> array = { 4, 5, 2, 1, 3,7,8,9,0 };
+	cout << quick_sort(array);
 }
