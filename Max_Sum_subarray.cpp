@@ -35,7 +35,7 @@ the same as the first solution
 
 
 
-int main(){
-	vector<int> a = { -1, 2, 3 };
-	cout << FindGreatestSumOfSubArray(a);
-}
+//int main(){
+//	vector<int> a = { -1, 2, 3 };
+//	cout << FindGreatestSumOfSubArray(a);
+//}

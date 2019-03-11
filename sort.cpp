@@ -156,7 +156,24 @@ vector<int> merge_sort_down2up(vector<int> & array){
 
 // Quick Sort
 void quick_sort_kernel(vector<int>& array, int left, int right){
-	
+	if (right - left < 1){
+		return;
+	}
+	int pivot = left;
+	int pivot_num = array[left];
+	swap(array, left, right);
+	for (int i = left; i < right; i++){
+		if (array[i] <= pivot_num){
+			continue;
+		}
+		else{
+			swap(array, i, pivot);
+			pivot++;
+		}
+	}
+	swap(array, right, pivot);
+	quick_sort_kernel(array, left, pivot);
+	quick_sort_kernel(array, pivot + 1, right);
 }
 
 vector<int> quick_sort(vector<int>& array){
@@ -167,7 +184,7 @@ vector<int> quick_sort(vector<int>& array){
 	return array;
 }
 
-int main(){
-	vector<int> array = { 4, 5, 2, 1, 3,7,8,9,0 };
-	cout << quick_sort(array);
-}
+//int main(){
+//	vector<int> array = { 4, 5, 2, 1, 3,7,8,9,0 };
+//	cout << quick_sort(array);
+//}
