@@ -67,7 +67,7 @@ void test_vector(){
 
 //HDU: Round table question
 
-void t_main() {
+void vector_main() {
 	int n, m;
 	while (cin >> n >> m) {
 		// Algorithm 1
@@ -91,26 +91,23 @@ void t_main() {
 		//Algorithm 2
 		// store the B position
 		vector<int> res(n * 2);
-		vector<int> b_pos;
+		vector<int> b_pos(n*2);
 		for (int i = 0; i < n * 2; i++){
 			res[i] = i;
 		}
 		int cur_index = 0;
 		for (int i = 0; i < n; i++){
 			cur_index = (cur_index + m - 1) % res.size();
-			b_pos.push_back(res[cur_index]);
+			b_pos[res[cur_index]] = 1;
 			res.erase(res.begin() + cur_index);
+			//cur_index++;
 		}
-		cur_index = 0;
 		for (int i = 0; i < n * 2; i++){
-			if (i < b_pos[cur_index]) cout << 'G';
-			if (i == b_pos[cur_index]){
-				cout << 'B';
-				cur_index++;
-			}
+			if (b_pos[i]) cout << 'B';
+			else cout << 'G';
+			
 		}
 		cout << endl;
-
 	}
 
 
