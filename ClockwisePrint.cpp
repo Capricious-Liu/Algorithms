@@ -23,47 +23,39 @@ vector<int> printMatrix(vector<vector<int> > matrix) {
 	int up = 0;
 	int down = h - 1;
 
-	while (j>=left && j<=right && i>= up && i<= down){
+	while (up<=down && left<=right){
 		switch (direction)
 		{
 		case 0:{
-			while (j <= right){
+			while (j < right){
 				res.push_back(matrix[i][j]);
 				j++;
 			}
-			j--;
 			up++;
-			i++;
 			break;
 		}
 		case 1:{
-			while (i <= down){
+			while (i < down){
 				res.push_back(matrix[i][j]);
 				i++;
 			}
-			i--;
 			right--;
-			j--;
 			break;
 		}
 		case 2:{
-			while (j >= left){
+			while (j > left){
 				res.push_back(matrix[i][j]); 
 				j--;
 			}
-			j++;
 			down--;
-			i--;
 			break;
 		}
 		case 3:{
-			while (i >= up){
+			while (i > up){
 				res.push_back(matrix[i][j]);
 				i--;
 			}
-			i++;
 			left++;
-			j++;
 			break;
 		}
 		default:
@@ -74,6 +66,7 @@ vector<int> printMatrix(vector<vector<int> > matrix) {
 			direction = 0;
 		}
 	}
+	res.push_back(matrix[i][j]);
 	return res;
 
 }
@@ -87,7 +80,7 @@ ostream& operator<< (ostream& out, vector<int> res){
 }
 
 
-void main(){
+void cw_print_main(){
 	vector<vector<int>> matrix = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
 	cout << printMatrix(matrix);
 }
